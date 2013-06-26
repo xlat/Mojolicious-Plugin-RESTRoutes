@@ -1,0 +1,14 @@
+Build.PL
+LICENSE
+MANIFEST
+META.yml
+README
+dist.ini
+lib/Mojolicious/Plugin/RESTRoutes.pm
+perlcritic.rc
+t/10_basic.t
+t/author-critic.t
+t/release-pod-coverage.t
+t/release-pod-syntax.t
+testdoc.pl
+weaver.ini

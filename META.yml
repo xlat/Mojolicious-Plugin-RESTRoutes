@@ -1,0 +1,23 @@
+---
+abstract: 'routing helpers for RESTful operations'
+author:
+  - 'Jens Berthold <cpan-mp-restroutes@jebecs.de>'
+build_requires:
+  Module::Build: 0.3601
+  MojoX::Log::Log4perl: 0
+  Test::Mojo: 0
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
+license: mit
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Mojolicious-Plugin-RESTRoutes
+requires:
+  Lingua::EN::Inflect: 1.895
+  Modern::Perl: 0
+  Mojo::Base: 0
+version: 0.0100062
