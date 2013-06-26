@@ -20,4 +20,4 @@ requires:
   Lingua::EN::Inflect: 1.895
   Modern::Perl: 0
   Mojo::Base: 0
-version: 0.0100062
+version: 0.0100065

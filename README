@@ -2,7 +2,7 @@ NAME
     Mojolicious::Plugin::RESTRoutes - routing helpers for RESTful operations
 
 VERSION
-    version 0.0100062
+    version 0.0100065
 
 DESCRIPTION
     This Mojolicious plugin adds some routing helpers for REST

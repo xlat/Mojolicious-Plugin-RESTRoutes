@@ -1,7 +1,7 @@
 use Modern::Perl '2012'; # strict, warnings etc.;
 package Mojolicious::Plugin::RESTRoutes;
 # ABSTRACT: routing helpers for RESTful operations
-our $VERSION = '0.0100062'; # TRIAL VERSION
+our $VERSION = '0.0100065'; # VERSION
 
 use Mojo::Base 'Mojolicious::Plugin';
 
@@ -85,7 +85,7 @@ Mojolicious::Plugin::RESTRoutes - routing helpers for RESTful operations
 
 =head1 VERSION
 
-version 0.0100062
+version 0.0100065
 
 =head1 DESCRIPTION
 
