@@ -1,11 +1,11 @@
 NAME
-    Mojolicious::Plugin::RESTRoutes - routing helpers for RESTful operations
+    Mojolicious::Plugin::RESTRoutes - routing helper for RESTful operations
 
 VERSION
-    version 0.0100065
+    version 0.010007
 
 DESCRIPTION
-    This Mojolicious plugin adds some routing helpers for REST
+    This Mojolicious plugin adds a routing helper for REST
     <http://en.wikipedia.org/wiki/Representational_state_transfer>ful CRUD
     <http://en.wikipedia.org/wiki/Create,_read,_update_and_delete>
     operations via HTTP to the app.
@@ -13,12 +13,9 @@ DESCRIPTION
     The routes are intended, but not restricted to be used by AJAX
     applications.
 
-EXTENDS
-    *   Mojolicious::Plugin
-
 METHODS
   register
-    Adds the routing helpers. Is called by Mojolicious.
+    Adds the routing helper. Is called by Mojolicious.
 
 MOJOLICIOUS SHORTCUTS
   rest_routes
@@ -32,6 +29,8 @@ MOJOLICIOUS SHORTCUTS
             #    GET /api/users/:userid --> My::Mojo::User::rest_show()
             #    PUT /api/users/:userid --> My::Mojo::User::rest_update()
             # DELETE /api/users/:userid --> My::Mojo::User::rest_remove()
+
+    Take care: IDs must be numeric!
 
     The target controller has to implement the following methods:
 
@@ -54,11 +53,10 @@ MOJOLICIOUS SHORTCUTS
         will be used to build the route URL as well as the controller name
         (see example above).
 
-    readonly
-        (optional) if set to 1, no create/update/delete routes will be
-        created
+    readonly (optional)
+        If set to 1, no create/update/delete routes will be created
 
-    controller
+    controller (optional)
         Default behaviour is to use the resource name to build the CamelCase
         controller name (this is done by Mojolicious::Routes::Route). You
         can change this by directly specifying the controller's name via the
@@ -78,7 +76,7 @@ AUTHOR
     Jens Berthold <cpan-mp-restroutes@jebecs.de>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2013 by Jens Berthold.
+    This software is Copyright (c) 2014 by Jens Berthold.
 
     This is free software, licensed under:
 

@@ -1,0 +1,12 @@
+Revision history for perl module Itop-Report
+
+0.010007 2014-04-09
+ [REVISION]
+ - Now using my own Dist::Zilla plugin bundle @Author::MAXHQ
+ - Updated to work with newest Mojolicious (replaced "$self->secret" with
+   "$self->secrets")
+
+0.0100065 2013-06-26
+ [REVISION]
+ - Initial CPAN release
+

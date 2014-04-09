@@ -29,7 +29,7 @@ use MojoX::Log::Log4perl;
 
 sub startup {
 	my $self = shift;
-	$self->secret("Victorias Secret");
+	$self->secrets(["Victorias Secret"]);
 
 	#$self->log( MojoX::Log::Log4perl->new() );
 

@@ -1,16 +1,90 @@
 use Modern::Perl '2012'; # strict, warnings etc.;
 package Mojolicious::Plugin::RESTRoutes;
-# ABSTRACT: routing helpers for RESTful operations
-our $VERSION = '0.0100065'; # VERSION
-
+# ABSTRACT: routing helper for RESTful operations
+# VERSION
+$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010007';
 use Mojo::Base 'Mojolicious::Plugin';
 
+# =encoding utf8
+#
+# =head1 DESCRIPTION
+#
+# This Mojolicious plugin adds a routing helper for
+# L<REST|http://en.wikipedia.org/wiki/Representational_state_transfer>ful
+# L<CRUD|http://en.wikipedia.org/wiki/Create,_read,_update_and_delete>
+# operations via HTTP to the app.
+#
+# The routes are intended, but not restricted to be used by AJAX applications.
+#
+# =cut
 
 use Lingua::EN::Inflect 1.895 qw/PL/;
 
+# =method register
+#
+# Adds the routing helper. Is called by Mojolicious. 
+#
+# =cut
 sub register {
 	my ($self, $app) = @_;
 	
+# =mojo_short rest_routes
+#
+# Can be used to easily generate the needed RESTful routes for a resource.
+#
+# 	$self->rest_routes(name => 'user');
+#
+# 	# Installs the following routes (given that $r->namespaces == ['My::Mojo']):
+# 	#    GET /api/users         --> My::Mojo::User::rest_list()
+# 	#   POST /api/users         --> My::Mojo::User::rest_create()
+# 	#    GET /api/users/:userid --> My::Mojo::User::rest_show()
+# 	#    PUT /api/users/:userid --> My::Mojo::User::rest_update()
+# 	# DELETE /api/users/:userid --> My::Mojo::User::rest_remove()
+#
+# Take care: IDs must be numeric!
+#
+# The target controller has to implement the following methods:
+#
+# =for :list
+# * rest_list
+# * rest_create
+# * rest_show
+# * rest_update
+# * rest_remove
+#
+# There are some options to control the route creation:
+#
+# B<Parameters>
+#
+# =over
+#
+# =item name
+#
+# The name of the resource, e.g. a "user", a "book" etc. This name will be used to
+# build the route URL as well as the controller name (see example above).
+#
+# =item readonly (optional)
+#
+# If set to 1, no create/update/delete routes will be created
+#
+# =item controller (optional)
+#
+# Default behaviour is to use the resource name to build the CamelCase controller
+# name (this is done by L<Mojolicious::Routes::Route>). You can change this by
+# directly specifying the controller's name via the I<controller> attribute.
+#
+# Note that you have to give the real controller class name (i.e. CamelCased or
+# whatever you class name looks like) including the full namespace.
+#
+# 	$self->rest_routes(name => 'user', controller => 'My::Mojo::Person');
+#
+# 	# Installs the following routes:
+# 	#    GET /api/users         --> My::Mojo::Person::rest_list()
+# 	#    ...
+#
+# =back
+#
+# =cut
 	# For the following TODOs also see http://pastebin.com/R9zXrtCg
 	# TODO Add GET /api/users/new            --> rest_create_user_form
 	# TODO Add GET /api/users/:userid/edit   --> rest_edit_user_form
@@ -28,7 +102,7 @@ sub register {
 			
 			my $plural = PL($name, 10);
 
-			$app->log->debug("Creating routes for resource '$name' (controller: $controller)");
+			$app->log->info("Creating REST routes for resource '$name' (controller: $controller)");
 			
 			#
 			# Generate "/$name" route, handled by controller $name
@@ -37,12 +111,12 @@ sub register {
 	
 			# GET requests - lists the collection of this resource
 			$resource->get->to('#rest_list')->name("list_$plural");
-			$app->log->info("Created route    GET ".$r->to_string."/$plural   (rest_list)");
+			$app->log->debug("Created route    GET ".$r->to_string."/$plural   (rest_list)");
 	
 			if (!$readonly) {
 				# POST requests - creates a new resource
 				$resource->post->to('#rest_create')->name("create_$name");
-				$app->log->info("Created route   POST ".$r->to_string."/$plural   (rest_create)");
+				$app->log->debug("Created route   POST ".$r->to_string."/$plural   (rest_create)");
 			};
 			
 			#
@@ -55,16 +129,16 @@ sub register {
 			
 			# GET requests - lists a single resource
 			$resource->get->to('#rest_show')->name("show_$name");
-			$app->log->info("Created route    GET ".$r->to_string."/$plural/:${name}id   (rest_show)");
+			$app->log->debug("Created route    GET ".$r->to_string."/$plural/:${name}id   (rest_show)");
 			
 			if (!$readonly) {
 				# DELETE requests - deletes a resource
 				$resource->delete->to('#rest_remove')->name("delete_$name");
-				$app->log->info("Created route DELETE ".$r->to_string."/$plural/:${name}id   (rest_delete)");
+				$app->log->debug("Created route DELETE ".$r->to_string."/$plural/:${name}id   (rest_delete)");
 				
 				# PUT requests - updates a resource
 				$resource->put->to('#rest_update')->name("update_$name");
-				$app->log->info("Created route    PUT ".$r->to_string."/$plural/:${name}id   (rest_update)");
+				$app->log->debug("Created route    PUT ".$r->to_string."/$plural/:${name}id   (rest_update)");
 			}	 
 			
 			# return "/$name/:id" route so that potential child routes make sense
@@ -81,34 +155,26 @@ __END__
 
 =head1 NAME
 
-Mojolicious::Plugin::RESTRoutes - routing helpers for RESTful operations
+Mojolicious::Plugin::RESTRoutes - routing helper for RESTful operations
 
 =head1 VERSION
 
-version 0.0100065
+version 0.010007
 
 =head1 DESCRIPTION
 
-This Mojolicious plugin adds some routing helpers for
+This Mojolicious plugin adds a routing helper for
 L<REST|http://en.wikipedia.org/wiki/Representational_state_transfer>ful
 L<CRUD|http://en.wikipedia.org/wiki/Create,_read,_update_and_delete>
 operations via HTTP to the app.
 
 The routes are intended, but not restricted to be used by AJAX applications.
 
-=head1 EXTENDS
-
-=over 4
-
-=item * L<Mojolicious::Plugin>
-
-=back
-
 =head1 METHODS
 
 =head2 register
 
-Adds the routing helpers. Is called by Mojolicious. 
+Adds the routing helper. Is called by Mojolicious. 
 
 =head1 MOJOLICIOUS SHORTCUTS
 
@@ -124,6 +190,8 @@ Can be used to easily generate the needed RESTful routes for a resource.
 	#    GET /api/users/:userid --> My::Mojo::User::rest_show()
 	#    PUT /api/users/:userid --> My::Mojo::User::rest_update()
 	# DELETE /api/users/:userid --> My::Mojo::User::rest_remove()
+
+Take care: IDs must be numeric!
 
 The target controller has to implement the following methods:
 
@@ -162,11 +230,11 @@ B<Parameters>
 The name of the resource, e.g. a "user", a "book" etc. This name will be used to
 build the route URL as well as the controller name (see example above).
 
-=item readonly
+=item readonly (optional)
 
-(optional) if set to 1, no create/update/delete routes will be created
+If set to 1, no create/update/delete routes will be created
 
-=item controller
+=item controller (optional)
 
 Default behaviour is to use the resource name to build the CamelCase controller
 name (this is done by L<Mojolicious::Routes::Route>). You can change this by
@@ -191,7 +259,7 @@ Jens Berthold <cpan-mp-restroutes@jebecs.de>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Jens Berthold.
+This software is Copyright (c) 2014 by Jens Berthold.
 
 This is free software, licensed under:
 
