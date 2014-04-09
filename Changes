@@ -1,17 +1,27 @@
 Revision history for perl module Itop-Report
 
+0.010009 2014-04-09
+ [DOCUMENTATION]
+ - added two missing entries into this changelog
+
 0.010008 2014-04-09
  [BUG FIXES]
- - Bug #90860: Removed "use MojoX::Log::Log4perl;" from 10_basic.t (thanks
+ - bug #90860: Removed "use MojoX::Log::Log4perl;" from 10_basic.t (thanks
    to dsteinbrunner)
+
+ [DOCUMENTATION]
+ - fixed some spelling and words
+
+ [REVISION]
+ - turned "info" logging into "debug" logging
 
 0.010007 2014-04-09
  [REVISION]
- - Now using my own Dist::Zilla plugin bundle @Author::MAXHQ
- - Updated to work with newest Mojolicious (replaced "$self->secret" with
+ - now using my own Dist::Zilla plugin bundle @Author::MAXHQ
+ - updated to work with newest Mojolicious (replaced "$self->secret" with
    "$self->secrets")
 
 0.0100065 2013-06-26
  [REVISION]
- - Initial CPAN release
+ - initial CPAN release
 
