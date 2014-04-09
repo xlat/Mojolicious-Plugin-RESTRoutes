@@ -25,8 +25,6 @@ sub rest_remove { shift->catchall('remove'); }
 package Test::Mojolicious::Plugin::RESTRoutes;
 use Mojo::Base 'Mojolicious';
 
-use MojoX::Log::Log4perl;
-
 sub startup {
 	my $self = shift;
 	$self->secrets(["Victorias Secret"]);

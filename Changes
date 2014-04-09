@@ -1,5 +1,10 @@
 Revision history for perl module Itop-Report
 
+0.010008 2014-04-09
+ [BUG FIXES]
+ - Bug #90860: Removed "use MojoX::Log::Log4perl;" from 10_basic.t (thanks
+   to dsteinbrunner)
+
 0.010007 2014-04-09
  [REVISION]
  - Now using my own Dist::Zilla plugin bundle @Author::MAXHQ

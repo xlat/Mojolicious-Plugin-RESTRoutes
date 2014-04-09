@@ -1,8 +1,8 @@
-use Modern::Perl '2012'; # strict, warnings etc.;
+use Modern::Perl; # strict, warnings etc.;
 package Mojolicious::Plugin::RESTRoutes;
 # ABSTRACT: routing helper for RESTful operations
 # VERSION
-$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010007';
+$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010008';
 use Mojo::Base 'Mojolicious::Plugin';
 
 # =encoding utf8
@@ -18,7 +18,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 #
 # =cut
 
-use Lingua::EN::Inflect 1.895 qw/PL/;
+use Lingua::EN::Inflect qw/PL/;
 
 # =method register
 #
@@ -159,7 +159,7 @@ Mojolicious::Plugin::RESTRoutes - routing helper for RESTful operations
 
 =head1 VERSION
 
-version 0.010007
+version 0.010008
 
 =head1 DESCRIPTION
 

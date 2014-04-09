@@ -18,7 +18,7 @@ my %module_build_args = (
     "Jens Berthold <cpan-mp-restroutes\@jebecs.de>"
   ],
   "dist_name" => "Mojolicious-Plugin-RESTRoutes",
-  "dist_version" => "0.010007",
+  "dist_version" => "0.010008",
   "license" => "mit",
   "module_name" => "Mojolicious::Plugin::RESTRoutes",
   "recommends" => {},
@@ -31,7 +31,6 @@ my %module_build_args = (
   },
   "script_files" => [],
   "test_requires" => {
-    "MojoX::Log::Log4perl" => "0.09",
     "Test::Mojo" => 0
   }
 );
@@ -39,7 +38,6 @@ my %module_build_args = (
 
 my %fallback_build_requires = (
   "Module::Build" => "0.3601",
-  "MojoX::Log::Log4perl" => "0.09",
   "Test::Mojo" => 0
 );
 

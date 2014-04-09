@@ -4,7 +4,6 @@ author:
   - 'Jens Berthold <cpan-mp-restroutes@jebecs.de>'
 build_requires:
   Module::Build: 0.3601
-  MojoX::Log::Log4perl: 0.09
   Test::Mojo: 0
 configure_requires:
   Module::Build: 0.3601
@@ -20,4 +19,4 @@ requires:
   Modern::Perl: 1.20121103
   Mojo::Base: 0
   perl: v5.8.8
-version: 0.010007
+version: 0.010008
