@@ -19,4 +19,4 @@ requires:
   Modern::Perl: 1.20121103
   Mojo::Base: 0
   perl: v5.8.8
-version: 0.010009
+version: 0.010010

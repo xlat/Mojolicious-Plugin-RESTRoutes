@@ -1,13 +1,18 @@
 Revision history for perl module Itop-Report
 
+0.010010 2014-04-10
+ [DOCUMENTATION]
+ - added another missing entry into this changelog ;-)
+
 0.010009 2014-04-09
  [DOCUMENTATION]
  - added two missing entries into this changelog
 
 0.010008 2014-04-09
  [BUG FIXES]
- - bug #90860: Removed "use MojoX::Log::Log4perl;" from 10_basic.t (thanks
-   to dsteinbrunner)
+ - #90860: Removed "use MojoX::Log::Log4perl;" from 10_basic.t (thanks to
+   dsteinbrunner)
+ - #87336: Failed with perls < 5.14 (thanks to ANDK)
 
  [DOCUMENTATION]
  - fixed some spelling and words

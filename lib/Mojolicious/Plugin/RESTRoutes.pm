@@ -2,7 +2,7 @@ use Modern::Perl; # strict, warnings etc.;
 package Mojolicious::Plugin::RESTRoutes;
 # ABSTRACT: routing helper for RESTful operations
 # VERSION
-$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010009';
+$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010010';
 use Mojo::Base 'Mojolicious::Plugin';
 
 # =encoding utf8
@@ -159,7 +159,7 @@ Mojolicious::Plugin::RESTRoutes - routing helper for RESTful operations
 
 =head1 VERSION
 
-version 0.010009
+version 0.010010
 
 =head1 DESCRIPTION
 

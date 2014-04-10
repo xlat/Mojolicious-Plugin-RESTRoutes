@@ -18,7 +18,7 @@ my %module_build_args = (
     "Jens Berthold <cpan-mp-restroutes\@jebecs.de>"
   ],
   "dist_name" => "Mojolicious-Plugin-RESTRoutes",
-  "dist_version" => "0.010009",
+  "dist_version" => "0.010010",
   "license" => "mit",
   "module_name" => "Mojolicious::Plugin::RESTRoutes",
   "recommends" => {},
