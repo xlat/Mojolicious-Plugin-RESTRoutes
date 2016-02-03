@@ -1,4 +1,25 @@
-Revision history for perl module Itop-Report
+Revision history for perl module Mojolicious-Plugin-RESTRoutes
+
+0.010012 2015-03-09
+ [+ENHANCEMENTS]
+ - New parameter "route" allows to specify route component string (to
+   overwrite default of using english plural form of "name")
+ - Test code for new parameter "route"
+
+ [BUG FIXES]
+ - remove unneccessary runtime dependencies
+ - Documentation talked about prefix /api/ which was not use in doc
+   examples
+ - Mojolicious 6: replaced ->bridge() with ->under()
+ - Mojolicious 6: Obviously the ways to specify the controller name are
+   different now
+
+0.010011 2015-01-23
+ [+ENHANCEMENTS]
+ - Route parameters are now fed into a stash entry "fm.ids"
+
+ [DOCUMENTATION]
+ - More detailed usage doc
 
 0.010010 2014-04-10
  [DOCUMENTATION]
