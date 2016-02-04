@@ -2,7 +2,7 @@ use Modern::Perl; # strict, warnings etc.;
 package Mojolicious::Plugin::RESTRoutes;
 # ABSTRACT: routing helper for RESTful operations
 # VERSION
-$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010012';
+$Mojolicious::Plugin::RESTRoutes::VERSION = '0.010013';
 use Mojo::Base 'Mojolicious::Plugin';
 
 #pod =encoding utf8
@@ -26,7 +26,7 @@ use Lingua::EN::Inflect qw/PL/;
 #pod
 #pod =cut
 sub register {
-	my ($self, $app) = @_;
+	my ($self, $app, $default_options) = @_;
 	
 #pod =mojo_short rest_routes
 #pod
@@ -165,21 +165,25 @@ sub register {
 			my $readonly = $params->{readonly} || 0;
 			my $controller = $params->{controller} || $name;
 			my $route_part = $params->{route} || PL($name, 10); # build english plural form
+			my $ext_coderef = $params->{hook} || $default_options->{hook};
 
 			$app->log->info("Creating REST routes for resource '$name' (controller: $controller)");
 			
+			if(ref($ext_coderef) eq 'CODE'){
+				$ext_coderef->('before', $app, $r, undef, undef, $route_part, $name, $controller, $readonly);
+			}
 			#
 			# Generate "/$name" route, handled by controller $name
 			#
-			my $resource = $r->route("/$route_part")->to(controller => $controller);
+			my $resources = $r->route("/$route_part")->to(controller => $controller);
 	
 			# GET requests - lists the collection of this resource
-			$resource->get->to('#rest_list')->name("list_$route_part");
+			$resources->get->to('#rest_list')->name("list_$route_part");
 			$app->log->debug("Created route    GET ".$r->to_string."/$route_part   (rest_list)");
 	
 			if (!$readonly) {
 				# POST requests - creates a new resource
-				$resource->post->to('#rest_create')->name("create_$name");
+				$resources->post->to('#rest_create')->name("create_$name");
 				$app->log->debug("Created route   POST ".$r->to_string."/$route_part   (rest_create)");
 			};
 			
@@ -189,7 +193,7 @@ sub register {
 
 			# resource routes might be chained, so we need to define an
 			# individual id and pass its name to the controller (idname)
-			$resource = $r
+			my $resource = $r
 			->under("/$route_part/:${name}id" => sub {
 				my ($c) = @_;
 				$c->app->log->debug(sprintf("Feeding ID into stash: \$c->stash('fm.ids')->{'%s'} = %s", $name, $c->param("${name}id")));
@@ -212,6 +216,11 @@ sub register {
 				$resource->put->to('#rest_update')->name("update_$name");
 				$app->log->debug("Created route    PUT ".$r->to_string."/$route_part/:${name}id   (rest_update)");
 			}	 
+			
+
+			if(ref($ext_coderef) eq 'CODE'){
+				$ext_coderef->('after', $app, $r, $resources, $resource, $route_part, $name, $controller, $readonly);
+			}
 			
 			# return "/$name/:id" route so that potential child routes make sense
 			return $resource;

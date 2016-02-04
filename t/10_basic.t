@@ -18,6 +18,7 @@ sub rest_create { shift->catchall('create'); }
 sub rest_show   { shift->catchall('show');   }
 sub rest_update { shift->catchall('update'); }
 sub rest_remove { shift->catchall('remove'); }
+sub rest_pas_la { print STDERR "# rest_pas_la called ****\n"; shift->catchall('pas_la'); }
 
 package Ive::Lost::My::Mojo::Angst;
 use Mojo::Base 'Ive::Lost::My::Mojo::User';
@@ -40,10 +41,18 @@ sub startup {
 	#
 	# REST routes
 	#
-	$self->plugin('RESTRoutes');
+	$self->plugin('RESTRoutes', { hook => sub{
+				my ($when, $app, $r, $resources, $resource, $route_part, $name, $controller, $readonly) = @_;
+				if($when eq 'before' ){
+					my $r1 = $r->get("/$route_part/pas_la")->to($controller.'#rest_pas_la')->name("pas_la_$name");
+					$app->log->debug("Created route    GET ".$r1->to_string."   (pas_la_$name)");
+				}
+			},
+		});
 	my $rt_api = $public->route('/api');
 	# /api/users/
-	$rt_api->rest_routes(name => 'user');
+	#$rt_api->get("/users/pas_la")->to('user#rest_pas_la')->name("pas_la_user");
+	my $r_users = $rt_api->rest_routes(name => 'user');
 	$rt_api->rest_routes(name => 'angst', route => 'aengste', readonly => 1);
 	# /api/systems/
 	my $rt_fw = $rt_api->rest_routes(name => 'system', readonly => 1, controller => 'User');
@@ -70,6 +79,8 @@ $t->post_ok('/api/users')->status_is(200)->content_is('create:', 'CREATE route')
 $t->get_ok('/api/users/5')->status_is(200)->content_is('show:5', 'SHOW route');
 $t->put_ok('/api/users/5')->status_is(200)->content_is('update:5', 'UPDATE route');
 $t->delete_ok('/api/users/5')->status_is(200)->content_is('remove:5', 'REMOVE route');
+#hook extensions
+$t->get_ok('/api/users/pas_la')->status_is(200)->content_is('pas_la:', 'PAS_LA route');
 
 # users - invalid
 $t->put_ok('/api/users')->status_is(404, 'error if updating without ID');

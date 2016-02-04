@@ -8,16 +8,23 @@ build_requires:
   Test::More: '0'
 configure_requires:
   Module::Build: '0.28'
-dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.032, CPAN::Meta::Converter version 2.143240'
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4214, CPAN::Meta::Converter version 2.150005'
 license: mit
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
 name: Mojolicious-Plugin-RESTRoutes
+provides:
+  Mojolicious::Plugin::RESTRoutes:
+    file: lib/Mojolicious/Plugin/RESTRoutes.pm
+    version: '0.010013'
 requires:
   Lingua::EN::Inflect: '0'
   Modern::Perl: '0'
   Mojo::Base: '0'
   perl: v5.8.8
-version: '0.010012'
+resources:
+  license: http://www.opensource.org/licenses/mit-license.php
+version: '0.010013'
+x_serialization_backend: 'CPAN::Meta::YAML version 0.012'

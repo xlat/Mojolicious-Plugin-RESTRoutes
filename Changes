@@ -1,5 +1,9 @@
 Revision history for perl module Mojolicious-Plugin-RESTRoutes
 
+0.010013 2016-02-01
+ [+ENHANCEMENTS]
+ - Add registration parameter { hook => sub {} } to allow custom actions on routes creation (see t/10_basic.t).
+
 0.010012 2015-03-09
  [+ENHANCEMENTS]
  - New parameter "route" allows to specify route component string (to
